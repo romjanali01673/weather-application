@@ -74,7 +74,7 @@ class CBase extends GetxController {
       debugPrint("hello romjan ali $data");
 
         return data['message'] ??
-            data['error']?["message"]?? // weather error message extract 
+            ((data['error'] is Map)? data['error']["message"] : data['error'])?? // weather error message extract 
             data['error']??
             data['Message'] ??
             data['error_description'] ??
@@ -84,6 +84,7 @@ class CBase extends GetxController {
       }
     } catch (e) {
       // No-op
+      debugPrint("romjan$e");
     }
     return "An unexpected server error occurred.";
   }
