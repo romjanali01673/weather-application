@@ -5,21 +5,23 @@ class WBottomRoundedButton extends StatelessWidget {
   final EdgeInsets margin; // ,
   final Function() ontap;
   final Function() onError;
-  final bool isEnabled; //,
+  final bool Function() isEnabled; //,
   final bool isLoading;
   const WBottomRoundedButton({
     super.key,
     required this.label,
     this.margin = const EdgeInsets.only(bottom: 20, left: 10, right: 10),
     required this.ontap,
-    this.isEnabled = true,
+    required this.isEnabled,
     this.isLoading = false, required this.onError,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: isEnabled? ontap: onError,
+      onTap: (){
+        return isEnabled() ? ontap(): onError();
+      },
       child: Stack(
         children: [
           Container(

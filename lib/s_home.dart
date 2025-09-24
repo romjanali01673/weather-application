@@ -227,25 +227,26 @@ class _SHomeState extends State<SHome> {
           ),
 
           SizedBox(height: 30),
-          Obx(
-            () => WBottomRoundedButton(
-              label: 'Check',
-              isEnabled: cHome.selectedCountry.isNotEmpty&&cHome.selectedDistic.isNotEmpty,
-              isLoading:
-                  Get.find<CHome>().currentState.value == HomeState.loading,
-              ontap: () {
-                cHome.getWatherData(
-                  cHome.selectedDistic.value,
-                  cHome.selectedCountry.value,
-                );
-              },
-              onError: () {
-                Get.snackbar(
-                  colorText: Colors.white,
-                  backgroundColor: Colors.black,
-                  "Info", "Please fill all required Field!");
-              },
-            ),
+          GetBuilder<CHome>(
+            builder: (cHome) {
+              return  WBottomRoundedButton(
+                  label: 'Check',
+                  isEnabled:()=>cHome.selectedCountry.value.isNotEmpty && cHome.selectedDistic.value.isNotEmpty,
+                  isLoading: Get.find<CHome>().viewState == ViewState.loading,
+                  ontap: () {
+                    cHome.getWatherData(
+                      cHome.selectedDistic.value,
+                      cHome.selectedCountry.value,
+                    );
+                  },
+                  onError: () {
+                    Get.snackbar(
+                      colorText: Colors.white,
+                      backgroundColor: Colors.black,
+                      "Info", "Please fill all required Field!");
+                  },
+              );
+            }
           ),
         ],
       ),

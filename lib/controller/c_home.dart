@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:weather_application/core/model/weather_model.dart';
+import 'package:weather_application/controller/c_base.dart';
+import 'package:weather_application/core/model/m_weather.dart';
 import 'package:weather_application/core/util/constats/all_enum.dart';
-import 'package:weather_application/core/util/constats/constants.dart';
 import 'package:weather_application/core/services/home_services.dart';
 
-class CHome extends GetxController {
+class CHome extends CBase {
 
-  var currentState = HomeState.initial.obs;
-  var count = 0.obs;
+  // var currentState = HomeState.initial.obs;
 
   var _selectedCountry = "".obs;
   var _selectedDistic = "".obs;
   
   List<String> _disabledDisticList = ["Brahmanbaria"];
-  List<String> _disticsList = ["Cumilla", "Brahmanbaria", "Feni", "Dhaka", "Chattogram", "Habiganj"];
+  List<String> _disticsList = ["Cumilla", "Brahmanbaria", "Feni", "Dhaka", "Chattogram", "Habiganj", "bijhgjh jgjh"];
   List<String> _disabledCountryList = ["Brahmanbaria"];
-  List<String> _countryList = ["Bangladesh", "India", "Nepal", "Us", "Canada", "Englend"];
+  List<String> _countryList = ["Bangladesh", "India", "Nepal", "Us", "Canada", "Englend", "bijhgjh jgjh"];
   MWeather? _mWather;  
-
 
   List<String> get disabledDisticList  =>_disabledDisticList;
   List<String> get disticsList         =>_disticsList;
@@ -29,7 +28,6 @@ class CHome extends GetxController {
   Rx<String> get selectedDistic        =>_selectedDistic;
 
   MWeather? get mWather =>_mWather;
-
 
   void notify(){
     update();
@@ -43,8 +41,8 @@ class CHome extends GetxController {
     _selectedCountry.value = country;
   }
 
-  void setCurrentState(HomeState state){
-    currentState.value = state;
+  void setViewState(ViewState state){
+    viewState = state;
     notify();
   }
 
@@ -54,16 +52,17 @@ class CHome extends GetxController {
   }
 
   void getWatherData(String distic, String country)async{
-    setCurrentState(HomeState.loading);
+    _mWather = null;
+    setViewState(ViewState.loading);
     try {
       HomeServices homeServices = HomeServices();
       MWeather data =  await homeServices.getWatherInfo(location: "$distic, $country");
       setMWeather(data);
-      setCurrentState(HomeState.loaded);
+      setViewState(ViewState.loaded);
       
-    } catch (e) {
-      debugPrint(e.toString());
-      setCurrentState(HomeState.error);
+    } catch (error, stackTrace) {
+      setException(error: error, stackTrace: stackTrace);
+      // Get.snackbar("title", error.toString());
     }
   }
 }
