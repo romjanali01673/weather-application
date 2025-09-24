@@ -1,23 +1,23 @@
 
-class WModel {
+class MWeather {
     Location location;
     Current current;
 
-    WModel({
+    MWeather({
         required this.location,
         required this.current,
     });
 
-    WModel copyWith({
+    MWeather copyWith({
         Location? location,
         Current? current,
     }) => 
-        WModel(
+        MWeather(
             location: location ?? this.location,
             current: current ?? this.current,
         );
 
-    factory WModel.fromJson(Map<String, dynamic> json) => WModel(
+    factory MWeather.fromJson(Map<String, dynamic> json) => MWeather(
         location: Location.fromJson(json["location"]),
         current: Current.fromJson(json["current"]),
     );
