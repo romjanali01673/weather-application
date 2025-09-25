@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:weather_application/controller/c_home.dart';
-import 'package:weather_application/s_home.dart';
+import 'package:weather_application/presentation/home/controller/c_home.dart';
+import 'package:weather_application/presentation/home/view/s_home.dart';
 
 void main() {
   

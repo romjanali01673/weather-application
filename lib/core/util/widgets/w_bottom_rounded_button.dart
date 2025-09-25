@@ -30,7 +30,6 @@ class WBottomRoundedButton extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color:Colors.white,
-              
             ),
             alignment: AlignmentGeometry.center,
             child: isLoading

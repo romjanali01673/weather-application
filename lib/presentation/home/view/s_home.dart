@@ -1,14 +1,13 @@
-import 'package:auto_size_text/auto_size_text.dart';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weather_application/controller/c_home.dart';
+import 'package:weather_application/presentation/home/controller/c_home.dart';
 import 'package:weather_application/core/util/constats/all_enum.dart';
-import 'package:weather_application/core/util/constats/constants.dart';
+import 'package:weather_application/core/util/widgets/w_drop_down_search.dart';
 import 'package:weather_application/core/util/widgets/w_bottom_rounded_button.dart';
 import 'package:weather_application/core/util/widgets/w_item_tile.dart';
 
-import 'core/util/widgets/w_vertical_divider.dart';
 
 class SHome extends StatefulWidget {
   const SHome({super.key});
@@ -53,7 +52,7 @@ class _SHomeState extends State<SHome> {
             child: Column(
               spacing: 10,
               children: [
-                getDropDownSearch(
+                WDropDownSearch(
                   onChanged: (val) {
                     cHome.setCountry(val ?? "");
                   },
@@ -63,7 +62,7 @@ class _SHomeState extends State<SHome> {
                   list: cHome.countryList,
                   disableList: cHome.disabledCountryList,
                 ),
-                getDropDownSearch(
+                WDropDownSearch(
                   onChanged: (val) {
                     cHome.setDistic(val ?? "");
                   },
@@ -76,6 +75,7 @@ class _SHomeState extends State<SHome> {
               ],
             ),
           ),
+          
           Expanded(
             child: GetBuilder<CHome>(
               init: CHome(),
@@ -253,57 +253,5 @@ class _SHomeState extends State<SHome> {
     );
   }
 
-  Widget getDropDownSearch({
-    required String label,
-    required String hintText,
-    required var key,
-    required List<String> list,
-    required List<String> disableList,
-    required Function(String?) onChanged,
-  }) {
-    return DropdownSearch<String>(
-      enabled: true,
-      key: key, // Needed for reset
-      // asyncItems: (String filter) => _getAllMemberData(),
-      items: (filter, y) async {
-        await Future.delayed(Duration(milliseconds: 400));
-        return list;
-      },
-      decoratorProps: DropDownDecoratorProps(
-        decoration: InputDecoration(
-          labelText: label,
-          hintText: hintText,
-          border: OutlineInputBorder(),
-        ),
-      ),
-
-      dropdownBuilder: (context, selectedItem) {
-        return Text(selectedItem ?? "");
-      },
-
-      popupProps: PopupProps.menu(
-        showSearchBox: true,
-        disabledItemFn: (item) {
-          return disableList.contains(item);
-        },
-        showSelectedItems: true,
-        itemBuilder: (context, item, isDisabled, isSelected) {
-          //to check isSelected required "showSelectedItems == true"
-          // Disable specific item visually and functionally
-          return ListTile(
-            title: Text(
-              item,
-              style: TextStyle(
-                color: isDisabled ? Colors.grey : Colors.black,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-          );
-        },
-      ),
-      // always use this function it's tested
-      // otherwise we get error because there are few bug here
-      onChanged: onChanged,
-    );
-  }
 }
+

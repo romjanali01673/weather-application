@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:weather_application/controller/c_base.dart';
+import 'package:weather_application/core/controller/c_base.dart';
 import 'package:weather_application/core/model/m_weather.dart';
 import 'package:weather_application/core/util/constats/all_enum.dart';
-import 'package:weather_application/core/services/home_services.dart';
+import 'package:weather_application/presentation/home/data/services/home_services.dart';
 
 class CHome extends CBase {
 

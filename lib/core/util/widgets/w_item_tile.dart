@@ -35,9 +35,10 @@ class WItemTile extends StatelessWidget {
               ),
             ),
           ),
-
+          
+          // vertical divider
           WVerticalDevider(),
-
+          
           // value
           SizedBox(
             width: 120,
@@ -52,7 +53,8 @@ class WItemTile extends StatelessWidget {
               ),
             ),
           ),
-
+          
+          // vertical divider
           WVerticalDevider(),
         ],
       ),
